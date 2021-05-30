@@ -4,14 +4,16 @@ import * as ROUTES from './constants/routes';
 
 const Login = lazy(() => import('./pages/Login'));
 const Signup = lazy(() => import('./pages/Sign-up'));
+const NotFound = lazy(() => import('./pages/Not-found'));
 
 function App() {
   return (
     <Router>
       <Suspense fallback={<p>Loading...</p>}>
         <Switch>
-          <Route path={ROUTES.LOGIN} component={Login} />
-          <Route path={ROUTES.SIGN_UP} component={Signup} />
+          <Route path={ROUTES.LOGIN} component={Login} exact />
+          <Route path={ROUTES.SIGN_UP} component={Signup} exact />
+          <Route component={NotFound} />
         </Switch>
       </Suspense>
     </Router>
