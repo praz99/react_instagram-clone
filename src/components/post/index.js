@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from './Header';
 
 function Post({ content }) {
-  return <p>I am a post</p>;
+  return <Header username={content.username} />;
 }
 
 export default Post;
