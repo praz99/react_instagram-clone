@@ -13,6 +13,6 @@ function Footer({ caption, username }) {
 Footer.propTypes = {
   caption: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired
-}
+};
 
-export default Footer
+export default Footer;
