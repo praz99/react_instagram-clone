@@ -12,6 +12,7 @@ function AddComment({ docId, comments, setComments, commentInput }) {
 
   const handleSubmitComment = (event) => {
     event.preventDefault();
+    setComments([{ displayName, comment }, ...comments]);
 
     return null;
   };
