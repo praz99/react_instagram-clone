@@ -6,11 +6,12 @@ import { isUserFollowingProfile } from '../../services/firebase';
 function Header({
   photosCount,
   followerCount,
-  setFolloowerCount,
+  setFollowerCount,
   profile: {
     docId: profileDocId,
     userId: profileUserId,
     fullName,
+    followers = [],
     following = [],
     username: profileUsername
   }
@@ -19,11 +20,16 @@ function Header({
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
   const activeBtnFollow = user.username && user.username !== profileUsername;
 
-  const handelToggleFollow = () => 1;
+  const handelToggleFollow = () => {
+    setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
+    setFollowerCount({
+      followerCount: isFollowingProfile ? followers.length - 1 : followers.length + 1
+    });
+  };
   useEffect(() => {
     const isLoggedInUserFollowingProfile = async () => {
       const isFollowing = await isUserFollowingProfile(user.username, profileUserId);
-      setIsFollowingProfile(isFollowing);
+      setIsFollowingProfile(!!isFollowing);
     };
 
     if (user.username && profileUserId) {
@@ -49,6 +55,11 @@ function Header({
               className="bg-blue-medium font-bold text-sm rounded text-white w-20 h-8"
               type="button"
               onClick={handelToggleFollow}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  handelToggleFollow();
+                }
+              }}
             >
               {isFollowingProfile ? 'Unfollow' : 'Follow'}
             </button>
@@ -62,12 +73,13 @@ function Header({
 Header.propTypes = {
   photosCount: PropTypes.number.isRequired,
   followerCount: PropTypes.number.isRequired,
-  setFolloowerCount: PropTypes.func.isRequired,
+  setFollowerCount: PropTypes.func.isRequired,
   profile: PropTypes.shape({
     docId: PropTypes.string,
     userId: PropTypes.string,
     fullName: PropTypes.string,
     following: PropTypes.array,
+    followers: PropTypes.array,
     username: PropTypes.string
   }).isRequired
 };

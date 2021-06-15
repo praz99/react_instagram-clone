@@ -124,4 +124,6 @@ export async function isUserFollowingProfile(loggedInUserUsername, profileUserId
     ...item.data(),
     docId: item.id
   }));
+
+  return response.userId;
 }
