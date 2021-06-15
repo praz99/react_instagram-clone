@@ -24,7 +24,7 @@ function Header({
   const handelToggleFollow = () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
     setFollowerCount({
-      followerCount: isFollowingProfile ? followers.length - 1 : followers.length + 1
+      followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1
     });
   };
   useEffect(() => {
@@ -75,9 +75,9 @@ function Header({
                 <span className="font-bold">{photosCount}</span> photos
               </p>
               <p className="mr-10">
-                <span className="font-bold">{followers.length}</span>
+                <span className="font-bold">{followerCount}</span>
                 {` `}
-                {followers.length === 1 ? `follower` : `followers`}
+                {followerCount === 1 ? `follower` : `followers`}
               </p>
               <p className="mr-10">
                 <span className="font-bold">{following.length}</span>
@@ -85,6 +85,11 @@ function Header({
               </p>
             </>
           )}
+        </div>
+        <div className="container mt-4">
+          <p className="font-medium">
+            {!fullName ? <Skeleton count={1} width={677} height={24} /> : fullName}
+          </p>
         </div>
       </div>
     </div>
